@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrendScope - Decline Prediction Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container-full">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 4L28 10L16 16L4 10L16 4Z" fill="currentColor" opacity="0.3"/>
+                            <path d="M4 16L16 22L28 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M4 22L16 28L28 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h1 class="logo-text">TrendScope</h1>
+                </div>
+                <div class="header-meta">
+                    <span class="status-badge pulse">LIVE</span>
+                    <span class="version">v2.1</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container-full">
+            <div class="dashboard-layout">
+                <!-- Left Section: Input & Results -->
+                <div class="left-section">
+                    <!-- Input Section -->
+                    <section class="input-section card-interactive">
+                        <div class="section-header">
+                            <h2 class="section-title">Trend Analysis</h2>
+                            <p class="section-subtitle">Enter trend parameters to analyze decline signals</p>
+                        </div>
+                        
+                        <form id="trendForm" class="trend-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="keyword" class="form-label">
+                                        <span class="label-icon">🔍</span>
+                                        Keyword / Hashtag
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input 
+                                            type="text" 
+                                            id="keyword" 
+                                            name="keyword" 
+                                            class="form-input"
+                                            placeholder="#TrendName"
+                                            required
+                                        >
+                                        <span class="input-focus-border"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="platform" class="form-label">
+                                        <span class="label-icon">📱</span>
+                                        Platform
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <select id="platform" name="platform" class="form-select" required>
+                                            <option value="">Select platform</option>
+                                            <option value="Instagram">Instagram</option>
+                                            <option value="TikTok">TikTok</option>
+                                            <option value="Twitter/X">Twitter/X</option>
+                                            <option value="YouTube">YouTube</option>
+                                            <option value="LinkedIn">LinkedIn</option>
+                                        </select>
+                                        <span class="input-focus-border"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="startDate" class="form-label">
+                                        <span class="label-icon">📅</span>
+                                        Start Date
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input 
+                                            type="date" 
+                                            id="startDate" 
+                                            name="startDate" 
+                                            class="form-input"
+                                            required
+                                        >
+                                        <span class="input-focus-border"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="endDate" class="form-label">
+                                        <span class="label-icon">📅</span>
+                                        End Date
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <input 
+                                            type="date" 
+                                            id="endDate" 
+                                            name="endDate" 
+                                            class="form-input"
+                                            required
+                                        >
+                                        <span class="input-focus-border"></span>
+                                    </div>
+                                </div>
+
+                                <!-- New Interactive Inputs -->
+                                <div class="form-group">
+                                    <label for="analysisDepth" class="form-label">
+                                        <span class="label-icon">🎯</span>
+                                        Analysis Depth
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <select id="analysisDepth" name="analysisDepth" class="form-select">
+                                            <option value="quick">Quick Scan</option>
+                                            <option value="standard" selected>Standard</option>
+                                            <option value="deep">Deep Analysis</option>
+                                        </select>
+                                        <span class="input-focus-border"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="region" class="form-label">
+                                        <span class="label-icon">🌍</span>
+                                        Region Focus
+                                    </label>
+                                    <div class="input-wrapper">
+                                        <select id="region" name="region" class="form-select">
+                                            <option value="global" selected>Global</option>
+                                            <option value="north-america">North America</option>
+                                            <option value="europe">Europe</option>
+                                            <option value="asia">Asia</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <span class="input-focus-border"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Advanced Options Toggle -->
+                            <div class="advanced-toggle">
+                                <button type="button" class="toggle-btn" id="advancedToggle">
+                                    <span>Advanced Options</span>
+                                    <svg class="toggle-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                        <path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="advanced-options" id="advancedOptions">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="minEngagement" class="form-label">
+                                            <span class="label-icon">💬</span>
+                                            Min. Engagement Threshold
+                                        </label>
+                                        <div class="range-wrapper">
+                                            <input 
+                                                type="range" 
+                                                id="minEngagement" 
+                                                name="minEngagement" 
+                                                class="form-range"
+                                                min="0"
+                                                max="100000"
+                                                step="1000"
+                                                value="1000"
+                                            >
+                                            <span class="range-value" id="minEngagementValue">1,000</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="confidenceLevel" class="form-label">
+                                            <span class="label-icon">📊</span>
+                                            Confidence Level
+                                        </label>
+                                        <div class="range-wrapper">
+                                            <input 
+                                                type="range" 
+                                                id="confidenceLevel" 
+                                                name="confidenceLevel" 
+                                                class="form-range"
+                                                min="0"
+                                                max="100"
+                                                value="75"
+                                            >
+                                            <span class="range-value" id="confidenceLevelValue">75%</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="includeInfluencers" checked>
+                                        <span class="checkbox-custom"></span>
+                                        <span>Include Influencer Analysis</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="includeSentiment" checked>
+                                        <span class="checkbox-custom"></span>
+                                        <span>Sentiment Analysis</span>
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="includeCompetitor">
+                                        <span class="checkbox-custom"></span>
+                                        <span>Competitor Comparison</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary" id="analyzeBtn">
+                                <span class="btn-text">Analyze Trend</span>
+                                <span class="btn-icon">→</span>
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="loading-state hidden">
+                        <div class="loading-spinner"></div>
+                        <p class="loading-text">Analyzing trend data...</p>
+                        <div class="loading-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <section id="resultsSection" class="results-section hidden">
+                        <!-- Status Cards -->
+                        <div class="status-cards">
+                            <div class="status-card primary card-interactive">
+                                <div class="card-label">Trend Status</div>
+                                <div class="card-value" id="trendStatus">—</div>
+                                <div class="card-meta">
+                                    <span class="confidence-label">Confidence</span>
+                                    <span class="confidence-value" id="confidenceScore">—</span>
+                                </div>
+                                <div class="card-sparkline">
+                                    <canvas id="statusSparkline"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="status-card card-interactive">
+                                <div class="card-label">Predicted Timeline</div>
+                                <div class="card-value smaller" id="predictedTime">—</div>
+                                <div class="card-meta">Until full decline</div>
+                            </div>
+
+                            <div class="status-card card-interactive">
+                                <div class="card-label">Engagement Drop</div>
+                                <div class="card-value smaller" id="engagementDrop">—</div>
+                                <div class="card-meta">From peak to current</div>
+                            </div>
+
+                            <div class="status-card card-interactive">
+                                <div class="card-label">Saturation Index</div>
+                                <div class="card-value smaller" id="saturationIndex">—</div>
+                                <div class="card-meta">Content similarity</div>
+                            </div>
+                        </div>
+
+                        <!-- Charts -->
+                        <div class="charts-grid">
+                            <div class="chart-card card-interactive">
+                                <h3 class="chart-title">Trend Lifecycle</h3>
+                                <div class="chart-container">
+                                    <canvas id="lifecycleChart"></canvas>
+                                </div>
+                            </div>
+
+                            <div class="chart-card card-interactive">
+                                <h3 class="chart-title">Decline Factors</h3>
+                                <div class="chart-container">
+                                    <canvas id="factorsChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- AI Insights -->
+                        <div class="insights-section">
+                            <div class="insight-card data-insight card-interactive">
+                                <div class="insight-header">
+                                    <span class="insight-icon">📊</span>
+                                    <h3 class="insight-title">Data Analysis</h3>
+                                </div>
+                                <p class="insight-text" id="dataInsight">—</p>
+                            </div>
+
+                            <div class="insight-card ai-insight card-interactive">
+                                <div class="insight-header">
+                                    <span class="insight-icon">✨</span>
+                                    <h3 class="insight-title">AI Recommendation</h3>
+                                </div>
+                                <p class="insight-text" id="aiInsight">—</p>
+                            </div>
+                        </div>
+
+                        <!-- Decline Signals Details -->
+                        <div class="signals-section card-interactive">
+                            <h3 class="signals-title">Decline Signals Breakdown</h3>
+                            <div class="signals-grid" id="signalsGrid">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right Section: Live Trending Charts -->
+                <aside class="right-section">
+                    <div class="live-trends-container">
+                        <!-- Top Declining Trends -->
+                        <div class="trend-widget card-interactive">
+                            <div class="widget-header">
+                                <div class="widget-title-group">
+                                    <span class="widget-icon declining">📉</span>
+                                    <h3 class="widget-title">Top Declining</h3>
+                                </div>
+                                <span class="update-badge">Live</span>
+                            </div>
+                            <div class="trend-list" id="decliningList">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Top Rising Trends -->
+                        <div class="trend-widget card-interactive">
+                            <div class="widget-header">
+                                <div class="widget-title-group">
+                                    <span class="widget-icon rising">📈</span>
+                                    <h3 class="widget-title">Top Rising</h3>
+                                </div>
+                                <span class="update-badge">Live</span>
+                            </div>
+                            <div class="trend-list" id="risingList">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Platform Stats -->
+                        <div class="platform-stats card-interactive">
+                            <h3 class="widget-title">Platform Activity</h3>
+                            <div class="platform-chart-container">
+                                <canvas id="platformChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-full">
+            <p class="footer-text">Powered by Explainable AI • TrendScope Analytics Platform</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

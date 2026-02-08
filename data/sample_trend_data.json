@@ -1,0 +1,100 @@
+{
+  "sample_trends": [
+    {
+      "keyword": "#Gaming",
+      "platform": "YouTube",
+      "description": "Popular gaming content trend - lots of data available",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Challenge",
+      "platform": "TikTok",
+      "description": "Viral challenge trend - high engagement",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Education",
+      "platform": "Instagram",
+      "description": "Educational content trend",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Dance",
+      "platform": "TikTok",
+      "description": "Dance content trend - very popular on TikTok",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Comedy",
+      "platform": "YouTube",
+      "description": "Comedy content - consistent engagement",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Tech",
+      "platform": "Twitter",
+      "description": "Technology trends and news",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Fitness",
+      "platform": "YouTube",
+      "description": "Fitness and wellness content",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Fashion",
+      "platform": "Instagram",
+      "description": "Fashion and style trends",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Music",
+      "platform": "Twitter",
+      "description": "Music-related content",
+      "expected_status": "Varies by date range"
+    },
+    {
+      "keyword": "#Viral",
+      "platform": "YouTube",
+      "description": "General viral content",
+      "expected_status": "Varies by date range"
+    }
+  ],
+  
+  "csv_structure": {
+    "columns": [
+      "Post_ID - Unique post identifier",
+      "Post_Date - Date in DD-MM-YYYY format",
+      "Platform - TikTok, Instagram, Twitter, YouTube",
+      "Hashtag - Main hashtag (e.g., #Gaming, #Challenge)",
+      "Content_Type - Video, Shorts, Post, Tweet, Reel, Live Stream",
+      "Region - UK, India, Brazil, Australia, Japan, Germany, Canada, USA",
+      "Views - Number of views",
+      "Likes - Number of likes",
+      "Shares - Number of shares",
+      "Comments - Number of comments",
+      "Engagement_Level - High, Medium, Low"
+    ]
+  },
+  
+  "available_hashtags": [
+    "#Challenge", "#Education", "#Dance", "#Comedy", "#Gaming",
+    "#Music", "#Viral", "#Fitness", "#Tech", "#Fashion"
+  ],
+  
+  "available_platforms": [
+    "TikTok", "Instagram", "Twitter", "YouTube"
+  ],
+  
+  "date_range": {
+    "start": "01-01-2022",
+    "end": "31-12-2023",
+    "format": "DD-MM-YYYY"
+  },
+  
+  "engagement_formula": {
+    "weighted_score": "Likes*1 + Comments*3 + Shares*5 + Views*0.01",
+    "explanation": "Comments and shares weighted higher as they indicate deeper engagement"
+  }
+}
